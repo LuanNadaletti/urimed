@@ -1,0 +1,29 @@
+.container {
+  background-color: #fafafa;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 9px 20px;
+  color: #c5c5c5;
+  display: flex;
+  margin-right: 10px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+mat-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}

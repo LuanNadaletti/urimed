@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="profile-picture">
+    <img
+      src="assets/images/profile-picture-template.png"
+      alt="Profile Picture"
+    />
+  </div>
+
+  <div *ngFor="let menuItem of menuItems">
+    <a [routerLink]="menuItem.route" class="menu-item">
+      <mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
+    </a>
+  </div>
+</div>
