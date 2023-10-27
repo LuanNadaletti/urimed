@@ -1,5 +1,8 @@
 language: java
 jdk:
   - openjdk17
-before_install: cd backend/urimed
-script: mvn clean install
+before_install:
+  - cd backend/urimed
+  - chmod +x mvnw
+script: 
+  ./mvnw clean install
