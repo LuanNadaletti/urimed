@@ -8,5 +8,7 @@ before_script:
 before_install:
   - cd backend/urimed
   - chmod +x mvnw
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
 script: 
   ./mvnw clean install
