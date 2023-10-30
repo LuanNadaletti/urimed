@@ -1,3 +1,5 @@
+![Travis (.com)](https://img.shields.io/travis/com/LuanNadaletti/urimed?logo=travis)
+
 # Hospital Management System
 
 ## Description
