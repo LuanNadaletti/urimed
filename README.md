@@ -9,16 +9,16 @@ This is a hospital management system developed in Java and Angular, designed to 
 
 ## Key Features
 
-- **Appointment Scheduling:** Doctors can efficiently schedule appointments for patients.
+-  **Appointment Scheduling:** Doctors can efficiently schedule appointments for patients.
 
-- **Patient Management:** Record and access patient medical information, histories, and details.
+-  **Patient Management:** Record and access patient medical information, histories, and details.
 
-- **Inventory Control:** Keep track of medical supplies and medication inventory.
+-  **Inventory Control:** Keep track of medical supplies and medication inventory.
 
-- **Reports:** Generate customizable reports for in-depth analysis.
+-  **Reports:** Generate customizable reports for in-depth analysis.
 
 ## Technologies Used
 
-- **Front-end:** Angular 13
-- **Back-end:** Java with Spring Boot
-- **Database:** MySQL
+-  **Front-end:** Angular 13
+-  **Back-end:** Java with Spring Boot
+-  **Database:** MySQL
