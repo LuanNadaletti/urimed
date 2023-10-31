@@ -1,4 +1,5 @@
 ![Travis (.com)](https://img.shields.io/travis/com/LuanNadaletti/urimed?logo=travis)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab76cb675d2a4c80959d66d53bc5b368)](https://app.codacy.com/gh/LuanNadaletti/urimed/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 # Hospital Management System
 
