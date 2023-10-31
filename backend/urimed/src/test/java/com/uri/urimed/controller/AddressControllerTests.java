@@ -17,11 +17,11 @@ import org.springframework.http.ResponseEntity;
 @SpringBootTest
 public class AddressControllerTests {
 
-    @InjectMocks
-    private AddressController addressController;
-
     @Mock
     private AddressRepository addressRepository;
+
+    @InjectMocks
+    private AddressController addressController;
 
     @BeforeEach
     void setUp() {

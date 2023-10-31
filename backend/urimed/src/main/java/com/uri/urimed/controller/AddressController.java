@@ -33,7 +33,7 @@ public class AddressController {
         Address address = new Address(data);
         addressRepository.delete(address);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Address deleted");
+        return ResponseEntity.status(HttpStatus.OK).body("Address deleted");
     }
 
 }
