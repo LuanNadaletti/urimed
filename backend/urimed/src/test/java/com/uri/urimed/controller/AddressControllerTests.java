@@ -55,14 +55,7 @@ public class AddressControllerTests {
     }
 
     private AddressRegistrationData createSampleRegistrationData() {
-        return new AddressRegistrationData(
-                "Test Street",
-                "9999999",
-                "Test Neighborhood",
-                "Test City",
-                "Test State",
-                "99999999"
-        );
+        return new AddressRegistrationData("Test Street", "9999999", "Test Neighborhood", "Test City", "Test State", "99999999");
     }
 
 }
