@@ -1,5 +1,6 @@
 package com.uri.urimed.model;
 
+import com.uri.urimed.record.SpecialtyRegistrationData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,5 +29,9 @@ public class Specialty implements Serializable {
 
         @Column(nullable = false)
         private String name;
+
+        public Specialty(SpecialtyRegistrationData data) {
+                this.name = data.name();
+        }
 
 }
