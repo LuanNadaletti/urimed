@@ -1,6 +1,7 @@
 package com.uri.urimed.errorhandling;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -19,6 +20,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> handleException(@NotNull HttpMessageNotReadableException e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An error occurred when trying to convert JSON:\n" + e.getMessage());
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDuplicateKeyException(@NotNull DataIntegrityViolationException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("The data provided violates an integrity constraint:\n" + e.getMessage());
     }
 
 }
