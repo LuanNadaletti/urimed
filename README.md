@@ -22,4 +22,4 @@ This is a hospital management system developed in Java and Angular, designed to 
 
 -  **Front-end:** Angular 13
 -  **Back-end:** Java with Spring Boot
--  **Database:** MySQL
+-  **Database:** PostgreSQL
