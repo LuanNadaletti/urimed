@@ -1,14 +1,19 @@
 package com.uri.urimed.controller;
 
 import com.uri.urimed.model.Doctor;
-import com.uri.urimed.record.DoctorRegistrationData;
 import com.uri.urimed.repository.DoctorRepository;
-import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("doctors")
@@ -20,20 +25,38 @@ public class DoctorController {
         this.doctorRepository = doctorRepository;
     }
 
-    @PostMapping("save")
-    public ResponseEntity<String> save(@RequestBody DoctorRegistrationData data) {
-        Doctor doctor = new Doctor(data);
-        doctorRepository.save(doctor);
+    @PostMapping
+    public ResponseEntity<Doctor> save(@RequestBody @Valid Doctor doctor) {
+        Doctor persistedDoctor = doctorRepository.save(doctor);
+        URI location = URI.create("/doctors/" + persistedDoctor.getId());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Doctor saved");
+        return ResponseEntity.created(location).body(persistedDoctor);
     }
 
-    @PostMapping("delete")
-    public ResponseEntity<String> delete(@RequestBody DoctorRegistrationData data) {
-        Doctor doctor = new Doctor(data);
-        doctorRepository.delete(doctor);
-
-        return ResponseEntity.status(HttpStatus.OK).body("Doctor deleted");
+    @GetMapping("/{id}")
+    public ResponseEntity<Doctor> getDoctorById(@PathVariable("id") Integer id) {
+        return doctorRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
+    @GetMapping
+    public ResponseEntity<List<Doctor>> getAlldoctors() {
+        List<Doctor> doctors = doctorRepository.findAll();
+        if (doctors.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(doctors);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Doctor> delete(@PathVariable("id") Integer id) {
+        try {
+            doctorRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

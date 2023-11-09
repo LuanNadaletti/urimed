@@ -2,10 +2,8 @@ package com.uri.urimed.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uri.urimed.model.Address;
-import com.uri.urimed.model.Doctor;
 import com.uri.urimed.model.Patient;
-import com.uri.urimed.model.Specialty;
-import com.uri.urimed.repository.DoctorRepository;
+import com.uri.urimed.repository.PatientRepository;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -23,10 +21,10 @@ import java.util.Collections;
 import java.util.Date;
 
 @AutoConfigureMockMvc(addFilters = false)
-@WebMvcTest(DoctorController.class)
-public class DoctorControllerTests {
+@WebMvcTest(PatientController.class)
+public class PatientControllerTests {
 
-    private static final String END_POINT_PATH = "/doctors";
+    private static final String END_POINT_PATH = "/patients";
 
     @Autowired
     private MockMvc mockMvc;
@@ -35,12 +33,12 @@ public class DoctorControllerTests {
     private ObjectMapper objectMapper;
 
     @MockBean
-    private DoctorRepository doctorRepository;
+    private PatientRepository patientRepository;
 
     @Test
     void testAddShouldReturnStatusFail() throws Exception {
-        Doctor doctor = new Doctor();
-        String requestBody = objectMapper.writeValueAsString(doctor);
+        Patient patient = new Patient();
+        String requestBody = objectMapper.writeValueAsString(patient);
 
         mockMvc.perform(MockMvcRequestBuilders.post(END_POINT_PATH).contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -49,24 +47,25 @@ public class DoctorControllerTests {
 
     @Test
     void testAddShouldReturnStatusCreated() throws Exception {
-        Doctor doctor = createSampleDoctor();
-        doctor.setId(1);
+        Patient patient = createSamplePatient();
+        patient.setId(1);
 
-        String requestBody = objectMapper.writeValueAsString(doctor);
-        Mockito.when(doctorRepository.save(doctor)).thenReturn(doctor);
+        String requestBody = objectMapper.writeValueAsString(patient);
+
+        Mockito.when(patientRepository.save(patient)).thenReturn(patient);
 
         mockMvc.perform(MockMvcRequestBuilders.post(END_POINT_PATH).contentType(MediaType.APPLICATION_JSON).content(requestBody))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.header().string("Location", "/doctors/1"))
+                .andExpect(MockMvcResultMatchers.header().string("Location", "/patients/1"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     void testGetShouldReturnStatusOk() throws Exception {
-        Doctor doctor = createSampleDoctor();
-        doctor.setId(1);
+        Patient patient = createSamplePatient();
+        patient.setId(1);
 
-        Mockito.when(doctorRepository.findById(1)).thenReturn(java.util.Optional.of(doctor));
+        Mockito.when(patientRepository.findById(1)).thenReturn(java.util.Optional.of(patient));
 
         mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH + "/1"))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -76,18 +75,18 @@ public class DoctorControllerTests {
 
     @Test
     void testGetAllShouldReturnStatusNoContent() throws Exception {
-        Mockito.when(doctorRepository.findAll()).thenReturn(Collections.emptyList());
+        Mockito.when(patientRepository.findAll()).thenReturn(Collections.emptyList());
 
         mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH))
                 .andExpect(MockMvcResultMatchers.status().isNoContent())
                 .andDo(MockMvcResultHandlers.print());
 
-        Mockito.verify(doctorRepository, Mockito.times(1)).findAll();
+        Mockito.verify(patientRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     void testGetAllShouldReturnStatusOk() throws Exception {
-        Mockito.when(doctorRepository.findAll()).thenReturn(Collections.singletonList(createSampleDoctor()));
+        Mockito.when(patientRepository.findAll()).thenReturn(Collections.singletonList(createSamplePatient()));
 
         mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH))
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
@@ -95,8 +94,9 @@ public class DoctorControllerTests {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    private @NotNull Doctor createSampleDoctor() {
-        return new Doctor("9999999999", "Test Test", new Date(), "M", "5499999999", new Address(), "1234567", "test@test.com", new Specialty());
-    }
+    private @NotNull Patient createSamplePatient() {
+        Address address = new Address("Test Street", "9999999", "Test Neighborhood", "Test City", "Test State", "99999999");
 
+        return new Patient("9999999999", "Test Test", new Date(), "M", "999999999", address, "test@mail.com");
+    }
 }
