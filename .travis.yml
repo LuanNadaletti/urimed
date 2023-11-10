@@ -1,16 +1,34 @@
-language: java
-jdk:
-  - openjdk17
-services:
-  - postgresql
-before_script:
-  - psql -c 'create database urimed;' -U postgres
-before_install:
-  - cd backend/urimed
-  - chmod +x mvnw
-after_success:
-  - curl -Os https://uploader.codecov.io/latest/linux/codecov
-  - chmod +x codecov
-  - ./codecov
-script: 
-  ./mvnw clean install
+jobs:
+  include:
+    - stage: java
+      language: java
+      jdk:
+        - openjdk17
+      services:
+        - postgresql
+      before_script:
+        - psql -c 'create database urimed;' -U postgres
+      before_install:
+        - cd backend/urimed
+        - chmod +x mvnw
+      script: 
+        - ./mvnw clean install
+      after_success:
+        - curl -Os https://uploader.codecov.io/latest/linux/codecov
+        - chmod +x codecov
+        - ./codecov
+
+    - stage: angular
+      language: node_js
+      node_js:
+        - "12"
+      before_install:
+        - cd frontend/urimed
+      cache:
+        directories:
+          - "node_modules"
+      install:
+        - npm install
+      script:
+        - npm run lint
+        - npm run test -- --watch=false --browsers=ChromeHeadless
