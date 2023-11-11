@@ -41,7 +41,7 @@ public class DoctorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Doctor>> getAlldoctors() {
+    public ResponseEntity<List<Doctor>> getAllDoctors() {
         List<Doctor> doctors = doctorRepository.findAll();
         if (doctors.isEmpty()) {
             return ResponseEntity.noContent().build();

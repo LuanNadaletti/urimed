@@ -33,5 +33,4 @@ public class Specialty implements Serializable {
         public Specialty(SpecialtyRegistrationData data) {
                 this.name = data.name();
         }
-
 }

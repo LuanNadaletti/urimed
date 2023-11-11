@@ -24,7 +24,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDuplicateKeyException(@NotNull DataIntegrityViolationException e) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("The data provided violates an integrity constraint:\n" + e.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The data provided violates an integrity constraint:\n" + e.getMessage());
     }
-
 }
