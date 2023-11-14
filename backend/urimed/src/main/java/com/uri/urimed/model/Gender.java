@@ -21,13 +21,10 @@ import java.io.Serializable;
 public class Gender implements Serializable {
 
     @Id
-    @NonNull
-    @NotNull
     @Column(name = "gender_id")
     private String id;
 
     @Column
-    @NonNull
     @NotNull
     private String name;
 }

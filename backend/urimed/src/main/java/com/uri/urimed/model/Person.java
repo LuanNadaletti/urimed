@@ -69,7 +69,9 @@ public abstract class Person implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
     private Address address;
 
-    public Person(String cpf, String name, Date birthdate, Gender gender, String phone, Address address) {
+    public Person(String username, String password, String cpf, String name, Date birthdate, Gender gender, String phone, Address address) {
+        this.username = username;
+        this.password = password;
         this.cpf = cpf;
         this.name = name;
         this.birthdate = birthdate;

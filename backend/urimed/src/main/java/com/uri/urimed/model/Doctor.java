@@ -50,8 +50,8 @@ public class Doctor extends Person implements Serializable {
     @JoinColumn(name = "specialty_id", referencedColumnName = "specialty_id", nullable = false)
     private Specialty specialty;
 
-    public Doctor(String cpf, String name, Date birthdate, Gender gender, String phone, Address address, String crm, String email, Specialty specialty) {
-        super(cpf, name, birthdate, gender, phone, address);
+    public Doctor(String username, String password, String cpf, String name, Date birthdate, Gender gender, String phone, Address address, String crm, String email, Specialty specialty) {
+        super(username, password, cpf, name, birthdate, gender, phone, address);
         this.crm = crm;
         this.email = email;
         this.specialty = specialty;

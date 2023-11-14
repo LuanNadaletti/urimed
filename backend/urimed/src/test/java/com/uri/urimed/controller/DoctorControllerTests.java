@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uri.urimed.model.Address;
 import com.uri.urimed.model.Doctor;
 import com.uri.urimed.model.Gender;
-import com.uri.urimed.model.Patient;
 import com.uri.urimed.model.Specialty;
 import com.uri.urimed.repository.DoctorRepository;
 import org.jetbrains.annotations.NotNull;
@@ -97,7 +96,7 @@ public class DoctorControllerTests {
     }
 
     private @NotNull Doctor createSampleDoctor() {
-        return new Doctor("9999999999", "Test Test", new Date(), new Gender(), "5499999999", new Address(), "1234567", "test@test.com", new Specialty());
+        return new Doctor("username", "password", "99999999999", "Test Test", new Date(), new Gender("M", "Masculino"), "5499999999", new Address(), "1234567", "test@test.com", new Specialty());
     }
 
 }

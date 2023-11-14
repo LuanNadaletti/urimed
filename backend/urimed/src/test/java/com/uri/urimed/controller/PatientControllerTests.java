@@ -98,6 +98,6 @@ public class PatientControllerTests {
     private @NotNull Patient createSamplePatient() {
         Address address = new Address("Test Street", "9999999", "Test Neighborhood", "Test City", "Test State", "99999999");
 
-        return new Patient("9999999999", "Test Test", new Date(), new Gender(), "999999999", address, "test@mail.com");
+        return new Patient("username", "password", "99999999999", "Test Test", new Date(), new Gender("M", "Masculino"), "999999999", address, "test@mail.com");
     }
 }
