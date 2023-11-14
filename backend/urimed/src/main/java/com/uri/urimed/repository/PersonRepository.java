@@ -2,8 +2,10 @@ package com.uri.urimed.repository;
 
 import com.uri.urimed.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.stereotype.Repository;
 
-@NoRepositoryBean
+@Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
+
+    Person findPersonByUsername(String username);
 }
