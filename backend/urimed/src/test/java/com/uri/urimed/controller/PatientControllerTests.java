@@ -2,6 +2,7 @@ package com.uri.urimed.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uri.urimed.model.Address;
+import com.uri.urimed.model.Gender;
 import com.uri.urimed.model.Patient;
 import com.uri.urimed.repository.PatientRepository;
 import org.jetbrains.annotations.NotNull;
@@ -97,6 +98,6 @@ public class PatientControllerTests {
     private @NotNull Patient createSamplePatient() {
         Address address = new Address("Test Street", "9999999", "Test Neighborhood", "Test City", "Test State", "99999999");
 
-        return new Patient("9999999999", "Test Test", new Date(), "M", "999999999", address, "test@mail.com");
+        return new Patient("9999999999", "Test Test", new Date(), new Gender(), "999999999", address, "test@mail.com");
     }
 }

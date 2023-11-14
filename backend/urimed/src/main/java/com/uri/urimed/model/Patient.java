@@ -30,7 +30,7 @@ public class Patient extends Person implements Serializable {
     @Column
     private String email;
 
-    public Patient(String cpf, String name, Date birthdate, String gender, String phone, Address address, String email) {
+    public Patient(String cpf, String name, Date birthdate, Gender gender, String phone, Address address, String email) {
         super(cpf, name, birthdate, gender, phone, address);
         this.email = email;
     }

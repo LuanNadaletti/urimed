@@ -1,6 +1,5 @@
 package com.uri.urimed.model;
 
-import com.uri.urimed.record.DoctorRegistrationData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -10,11 +9,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
+/**
+ * Represents a Doctor in the system.
+ * <p>
+ * This class is a JPA entity that maps to the "doctors" table in the database.
+ * It extends the {@link Person} class and includes additional fields for the doctor's CRM, email, and specialty.
+ * </p>
+ * <p>
+ * This class implements {@link java.io.Serializable}, which means it can be converted to a byte stream and
+ * restored without losing the type of its fields and the relationships between the fields.
+ * </p>
+ *
+ * @author Luan Nadaletti
+ * @version 1.0
+ * @see Person
+ */
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -36,11 +50,10 @@ public class Doctor extends Person implements Serializable {
     @JoinColumn(name = "specialty_id", referencedColumnName = "specialty_id", nullable = false)
     private Specialty specialty;
 
-    public Doctor(@NotNull DoctorRegistrationData data) {
-        super(data.cpf(), data.name(), data.birthdate(), data.gender(), data.phone(), data.address());
-        this.crm = data.crm();
-        this.email = data.email();
-        this.specialty = data.specialty();
+    public Doctor(String cpf, String name, Date birthdate, Gender gender, String phone, Address address, String crm, String email, Specialty specialty) {
+        super(cpf, name, birthdate, gender, phone, address);
+        this.crm = crm;
+        this.email = email;
+        this.specialty = specialty;
     }
-
 }

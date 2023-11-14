@@ -11,6 +11,8 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -30,20 +32,35 @@ public abstract class Person implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "people_id")
+    @Column(name = "person_id")
     private Integer id;
 
-    @Column(nullable = false, length = 11)
+    @NotNull
+    @Column
+    private String username;
+
+    @NotNull
+    @Column
+    private String password;
+
+    @NotNull
+    @Size(min = 11, max = 11)
+    @Column
     private String cpf;
 
-    @Column(nullable = false, length = 250)
+    @NotNull
+    @Size(min = 3, max = 250)
+    @Column
     private String name;
 
-    @Column(nullable = false)
+    @NotNull
+    @Column
     private Date birthdate;
 
-    @Column(nullable = false, length = 1)
-    private String gender;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "gender_id", referencedColumnName = "gender_id")
+    private Gender gender;
 
     @Column(nullable = false, length = 20)
     private String phone;
@@ -52,7 +69,7 @@ public abstract class Person implements Serializable {
     @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
     private Address address;
 
-    public Person(String cpf, String name, Date birthdate, String gender, String phone, Address address) {
+    public Person(String cpf, String name, Date birthdate, Gender gender, String phone, Address address) {
         this.cpf = cpf;
         this.name = name;
         this.birthdate = birthdate;
