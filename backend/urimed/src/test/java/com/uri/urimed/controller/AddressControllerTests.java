@@ -1,61 +1,100 @@
 package com.uri.urimed.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uri.urimed.model.Address;
-import com.uri.urimed.record.AddressRegistrationData;
 import com.uri.urimed.repository.AddressRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-@SpringBootTest
+import java.util.Collections;
+
+@AutoConfigureMockMvc(addFilters = false)
+@WebMvcTest(AddressController.class)
 public class AddressControllerTests {
 
-    @Mock
+    private static final String END_POINT_PATH = "/addresses";
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockBean
     private AddressRepository addressRepository;
 
-    @InjectMocks
-    private AddressController addressController;
+    @Test
+    void testAddShouldReturnStatusFail() throws Exception {
+        Address address = new Address();
+        String requestBody = objectMapper.writeValueAsString(address);
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+        mockMvc.perform(MockMvcRequestBuilders.post(END_POINT_PATH).contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    void testSave() {
-        AddressRegistrationData registrationData = createSampleRegistrationData();
-        Address address = new Address(registrationData);
+    void testAddShouldReturnStatusCreated() throws Exception {
+        Address address = createSampleAddress();
+        address.setId(1);
 
+        String requestBody = objectMapper.writeValueAsString(address);
         Mockito.when(addressRepository.save(address)).thenReturn(address);
 
-        ResponseEntity<String> response = addressController.save(registrationData);
-
-        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        Assertions.assertEquals("Address saved", response.getBody());
+        mockMvc.perform(MockMvcRequestBuilders.post(END_POINT_PATH).contentType(MediaType.APPLICATION_JSON).content(requestBody))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.header().string("Location", "/addresses/1"))
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
-    void testDelete() {
-        AddressRegistrationData registrationData = createSampleRegistrationData();
-        Address address = new Address(registrationData);
+    void testGetShouldReturnStatusOk() throws Exception {
+        Address address = createSampleAddress();
+        address.setId(1);
 
-        Mockito.doNothing().when(addressRepository).delete(address);
+        Mockito.when(addressRepository.findById(1)).thenReturn(java.util.Optional.of(address));
 
-        ResponseEntity<String> response = addressController.delete(registrationData);
-
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals("Address deleted", response.getBody());
+        mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH + "/1"))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
-    private AddressRegistrationData createSampleRegistrationData() {
-        return new AddressRegistrationData("Test Street", "9999999", "Test Neighborhood", "Test City", "Test State", "99999999");
+    @Test
+    void testGetAllShouldReturnStatusNoContent() throws Exception {
+        Mockito.when(addressRepository.findAll()).thenReturn(Collections.emptyList());
+
+        mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH))
+                .andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andDo(MockMvcResultHandlers.print());
+
+        Mockito.verify(addressRepository, Mockito.times(1)).findAll();
+    }
+
+    @Test
+    void testGetAllShouldReturnStatusOk() throws Exception {
+        Mockito.when(addressRepository.findAll()).thenReturn(Collections.singletonList(createSampleAddress()));
+
+        mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    private Address createSampleAddress() {
+        return new Address("Rua 1", "123", "Bairro 1", "Cidade 1", "Estado 1", "12345678");
     }
 
 }
