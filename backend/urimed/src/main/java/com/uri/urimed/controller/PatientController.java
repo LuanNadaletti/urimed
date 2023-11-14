@@ -2,9 +2,11 @@ package com.uri.urimed.controller;
 
 import com.uri.urimed.model.Patient;
 import com.uri.urimed.repository.PatientRepository;
+import com.uri.urimed.util.ListUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +21,12 @@ import java.util.List;
 @RequestMapping("patients")
 public class PatientController {
 
+    private final PatientRepository patientRepository;
+
     @Autowired
-    private PatientRepository patientRepository;
+    public PatientController(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
     @PostMapping
     public ResponseEntity<Patient> save(@RequestBody @Valid Patient patient) {
@@ -30,6 +36,16 @@ public class PatientController {
         return ResponseEntity.created(location).body(persistedPatient);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Patient>> getAllPatients() {
+        List<Patient> patients = patientRepository.findAll();
+        if (ListUtils.isNullOrEmpty(patients)) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(patients);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable("id") Integer id) {
         return patientRepository.findById(id)
@@ -37,13 +53,13 @@ public class PatientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping
-    public ResponseEntity<List<Patient>> getAllPatients() {
-        List<Patient> patients = patientRepository.findAll();
-        if (patients.isEmpty()) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Patient> delete(@PathVariable("id") Integer id) {
+        try {
+            patientRepository.deleteById(id);
             return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
         }
-
-        return ResponseEntity.ok(patients);
     }
 }

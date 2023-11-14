@@ -1,14 +1,22 @@
 package com.uri.urimed.controller;
 
 import com.uri.urimed.model.Address;
-import com.uri.urimed.record.AddressRegistrationData;
 import com.uri.urimed.repository.AddressRepository;
-import org.springframework.http.HttpStatus;
+import com.uri.urimed.util.ListUtils;
+import jakarta.validation.Valid;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("addresses")
@@ -16,24 +24,43 @@ public class AddressController {
 
     private final AddressRepository addressRepository;
 
+    @Autowired
     public AddressController(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }
 
-    @PostMapping("save")
-    public ResponseEntity<String> save(@RequestBody AddressRegistrationData data) {
-        Address address = new Address(data);
-        addressRepository.save(address);
+    @PostMapping
+    public ResponseEntity<Address> save(@RequestBody @Valid Address address) {
+        Address persistedAddress = addressRepository.save(address);
+        URI location = URI.create("/addresses/" + persistedAddress.getId());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Address saved");
+        return ResponseEntity.created(location).body(persistedAddress);
     }
 
-    @PostMapping("delete")
-    public ResponseEntity<String> delete(@RequestBody AddressRegistrationData data) {
-        Address address = new Address(data);
-        addressRepository.delete(address);
+    @GetMapping
+    public ResponseEntity<List<Address>> getAllAddresses() {
+        List<Address> addresses = addressRepository.findAll();
+        if (ListUtils.isNullOrEmpty(addresses)) {
+            return ResponseEntity.noContent().build();
+        }
 
-        return ResponseEntity.status(HttpStatus.OK).body("Address deleted");
+        return ResponseEntity.ok(addresses);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Address> getAddressById(@PathVariable("id") Integer id) {
+        return addressRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Address> delete(@PathVariable("id") Integer id) {
+        try {
+            addressRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

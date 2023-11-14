@@ -2,6 +2,7 @@ package com.uri.urimed.controller;
 
 import com.uri.urimed.model.Doctor;
 import com.uri.urimed.repository.DoctorRepository;
+import com.uri.urimed.util.ListUtils;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,21 +34,21 @@ public class DoctorController {
         return ResponseEntity.created(location).body(persistedDoctor);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Doctor>> getAllDoctors() {
+        List<Doctor> doctors = doctorRepository.findAll();
+        if (ListUtils.isNullOrEmpty(doctors)) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(doctors);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Doctor> getDoctorById(@PathVariable("id") Integer id) {
         return doctorRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Doctor>> getAllDoctors() {
-        List<Doctor> doctors = doctorRepository.findAll();
-        if (doctors.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(doctors);
     }
 
     @DeleteMapping("/{id}")
