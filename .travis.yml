@@ -21,7 +21,7 @@ jobs:
     - stage: angular
       language: node_js
       node_js:
-        - "12"
+        - "16"
       before_install:
         - cd frontend/urimed
       cache:
