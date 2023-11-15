@@ -4,6 +4,7 @@ import com.uri.urimed.model.Doctor;
 import com.uri.urimed.repository.DoctorRepository;
 import com.uri.urimed.util.ListUtils;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +21,8 @@ import java.util.List;
 @RequestMapping("doctors")
 public class DoctorController {
 
-    private final DoctorRepository doctorRepository;
-
-    public DoctorController(DoctorRepository doctorRepository) {
-        this.doctorRepository = doctorRepository;
-    }
+    @Autowired
+    private DoctorRepository doctorRepository;
 
     @PostMapping
     public ResponseEntity<Doctor> save(@RequestBody @Valid Doctor doctor) {

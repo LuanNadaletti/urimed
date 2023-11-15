@@ -21,12 +21,8 @@ import java.util.List;
 @RequestMapping("patients")
 public class PatientController {
 
-    private final PatientRepository patientRepository;
-
     @Autowired
-    public PatientController(PatientRepository patientRepository) {
-        this.patientRepository = patientRepository;
-    }
+    private PatientRepository patientRepository;
 
     @PostMapping
     public ResponseEntity<Patient> save(@RequestBody @Valid Patient patient) {

@@ -21,12 +21,8 @@ import java.util.List;
 @RequestMapping("specialties")
 public class SpecialtyController {
 
-    private final SpecialtyRepository specialtyRepository;
-
     @Autowired
-    public SpecialtyController(SpecialtyRepository specialtyRepository) {
-        this.specialtyRepository = specialtyRepository;
-    }
+    private SpecialtyRepository specialtyRepository;
 
     @PostMapping
     public ResponseEntity<Specialty> save(@RequestBody @Valid Specialty specialty) {

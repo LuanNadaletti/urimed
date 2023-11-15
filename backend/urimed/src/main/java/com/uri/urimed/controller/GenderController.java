@@ -1,7 +1,6 @@
 package com.uri.urimed.controller;
 
 import com.uri.urimed.model.Gender;
-import com.uri.urimed.model.Patient;
 import com.uri.urimed.repository.GenderRepository;
 import com.uri.urimed.util.ListUtils;
 import jakarta.validation.Valid;

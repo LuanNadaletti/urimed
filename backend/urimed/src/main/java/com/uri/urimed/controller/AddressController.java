@@ -4,7 +4,6 @@ import com.uri.urimed.model.Address;
 import com.uri.urimed.repository.AddressRepository;
 import com.uri.urimed.util.ListUtils;
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,12 +21,8 @@ import java.util.List;
 @RequestMapping("addresses")
 public class AddressController {
 
-    private final AddressRepository addressRepository;
-
     @Autowired
-    public AddressController(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
-    }
+    private AddressRepository addressRepository;
 
     @PostMapping
     public ResponseEntity<Address> save(@RequestBody @Valid Address address) {
