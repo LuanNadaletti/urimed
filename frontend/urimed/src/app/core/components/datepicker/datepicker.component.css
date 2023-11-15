@@ -1,0 +1,24 @@
+* {
+  --mdc-filled-text-field-container-color: white;
+}
+
+.mat-calendar-body-selected {
+  background-color: var(
+    --mat-datepicker-calendar-date-selected-state-background-color
+  );
+  color: var(--mat-datepicker-calendar-date-selected-state-text-color);
+}
+
+.mat-mdc-button-touch-target {
+  height: 40px;
+  width: 40px;
+}
+
+.date-picker #birthdate > mat-form-field > div.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align.ng-tns-c1205077789-0 {
+  display: none;
+}
+
+mat-form-field {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

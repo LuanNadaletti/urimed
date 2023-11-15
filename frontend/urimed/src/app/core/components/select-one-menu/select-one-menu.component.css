@@ -1,0 +1,18 @@
+* {
+  --mdc-filled-text-field-container-color: white;
+}
+
+.mat-mdc-form-field-infix {
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+}
+
+.mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper {
+  transform: translateY(2px);
+}
+
+mat-form-field {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

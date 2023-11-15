@@ -1,0 +1,28 @@
+<mat-accordion>
+  <ng-container *ngFor="let item of items">
+    <mat-expansion-panel *ngIf="item.children && item.children.length > 0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>{{ item.icon }}</mat-icon> {{ item.label }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-list-item *ngFor="let child of item.children">
+        <a matLine [routerLink]="child.destination">
+          <div class="mat-expansion-panel-like">
+            <mat-icon>{{ child.icon }}</mat-icon> {{ child.label }}
+          </div>
+        </a>
+      </mat-list-item>
+    </mat-expansion-panel>
+
+    <a matLine [routerLink]="item.destination">
+      <div
+        *ngIf="!item.children || item.children.length === 0"
+        class="mat-expansion-panel-like"
+      >
+        <mat-icon>{{ item.icon }}</mat-icon> {{ item.label }}
+      </div>
+    </a>
+  </ng-container>
+</mat-accordion>
