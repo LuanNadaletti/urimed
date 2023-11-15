@@ -1,6 +1,5 @@
 package com.uri.urimed.model;
 
-import com.uri.urimed.record.SpecialtyRegistrationData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,18 +20,14 @@ import java.io.Serializable;
 @Table(name = "specialties")
 public class Specialty implements Serializable {
 
-        @Serial
-        private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "specialty_id")
-        private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "specialty_id")
+    private Integer id;
 
-        @Column(nullable = false)
-        private String name;
-
-        public Specialty(SpecialtyRegistrationData data) {
-                this.name = data.name();
-        }
+    @Column(nullable = false)
+    private String name;
 }
