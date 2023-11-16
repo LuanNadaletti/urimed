@@ -3,6 +3,7 @@ package com.uri.urimed.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,9 +26,9 @@ public class Patient extends Person implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @NotNull
+    @NotEmpty
     @Size(min = 10, max = 250)
-    @Column
+    @Column(nullable = false)
     private String email;
 
     public Patient(String username, String password, String cpf, String name, Date birthdate, Gender gender, String phone, Address address, String email) {

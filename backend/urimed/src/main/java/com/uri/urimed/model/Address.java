@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,21 +43,27 @@ public class Address implements Serializable {
     @Column(name = "address_id")
     private Integer id;
 
+    @NotEmpty
     @Column(nullable = false)
     private String street;
 
+    @NotEmpty
     @Column(nullable = false)
     private String number;
 
+    @NotEmpty
     @Column(nullable = false)
     private String neighborhood;
 
+    @NotEmpty
     @Column(nullable = false)
     private String city;
 
+    @NotEmpty
     @Column(nullable = false)
     private String state;
 
+    @NotEmpty
     @Column(nullable = false)
     private String zipCode;
 

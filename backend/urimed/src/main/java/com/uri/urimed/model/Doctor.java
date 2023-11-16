@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -40,12 +42,15 @@ public class Doctor extends Person implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty
     @Column(nullable = false, length = 20)
     private String crm;
 
+    @NotEmpty
     @Column(nullable = false, length = 250)
     private String email;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "specialty_id", referencedColumnName = "specialty_id", nullable = false)
     private Specialty specialty;

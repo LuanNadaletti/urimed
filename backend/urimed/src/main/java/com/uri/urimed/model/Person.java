@@ -11,6 +11,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -35,36 +36,38 @@ public abstract class Person implements Serializable {
     @Column(name = "person_id")
     private Integer id;
 
-    @NotNull
-    @Column
+    @NotEmpty
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @NotNull
-    @Column
+    @NotEmpty
+    @Column(nullable = false)
     private String password;
 
-    @NotNull
+    @NotEmpty
     @Size(min = 11, max = 11)
-    @Column
+    @Column(nullable = false, unique = true)
     private String cpf;
 
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 250)
-    @Column
+    @Column(nullable = false)
     private String name;
 
     @NotNull
-    @Column
+    @Column(nullable = false)
     private Date birthdate;
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "gender_id", referencedColumnName = "gender_id")
+    @JoinColumn(name = "gender_id", referencedColumnName = "gender_id", nullable = false)
     private Gender gender;
 
+    @NotEmpty
     @Column(nullable = false, length = 20)
     private String phone;
 
+    @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
     private Address address;
