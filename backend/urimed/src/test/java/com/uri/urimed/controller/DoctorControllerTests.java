@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -37,6 +38,9 @@ public class DoctorControllerTests {
     @MockBean
     private DoctorRepository doctorRepository;
 
+    @MockBean
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Test
     void testAddShouldReturnStatusFail() throws Exception {
         Doctor doctor = new Doctor();
@@ -51,6 +55,8 @@ public class DoctorControllerTests {
     void testAddShouldReturnStatusCreated() throws Exception {
         Doctor doctor = createSampleDoctor();
         doctor.setId(1);
+
+        Mockito.when(bCryptPasswordEncoder.encode(doctor.getPassword())).thenReturn(doctor.getPassword());
 
         String requestBody = objectMapper.writeValueAsString(doctor);
         Mockito.when(doctorRepository.save(doctor)).thenReturn(doctor);
