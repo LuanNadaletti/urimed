@@ -6,6 +6,7 @@ import com.uri.urimed.util.ListUtils;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +25,12 @@ public class DoctorController {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @PostMapping
     public ResponseEntity<Doctor> save(@RequestBody @Valid Doctor doctor) {
+        doctor.setPassword(passwordEncoder.encode(doctor.getPassword()));
         Doctor persistedDoctor = doctorRepository.save(doctor);
         URI location = URI.create("/doctors/" + persistedDoctor.getId());
 

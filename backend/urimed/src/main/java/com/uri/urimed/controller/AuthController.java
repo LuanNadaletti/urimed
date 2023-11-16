@@ -6,6 +6,7 @@ import com.uri.urimed.repository.PersonRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,9 @@ public class AuthController {
     @Autowired
     private PersonRepository personRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @PostMapping("/login")
     public ResponseEntity<Person> login(@RequestBody @Valid LoginRequest login) {
         Person person = personRepository.findPersonByUsername(login.username());
@@ -25,11 +29,14 @@ public class AuthController {
             return ResponseEntity.notFound().build();
         }
 
-        if (!person.getPassword().equals(login.password())) {
+        if (!checkPassword(person, login.password())) {
             return ResponseEntity.badRequest().build();
         }
 
         return ResponseEntity.ok().body(person);
     }
 
+    public boolean checkPassword(Person person, String rawPassword) {
+        return passwordEncoder.matches(rawPassword, person.getPassword());
+    }
 }
