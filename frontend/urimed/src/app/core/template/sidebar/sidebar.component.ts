@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
-import { MenuItem } from '../../models/menu-item.interface'
+import { MenuItem } from '../../models/menu-item.interface';
 
 @Component({
   selector: 'app-sidebar',

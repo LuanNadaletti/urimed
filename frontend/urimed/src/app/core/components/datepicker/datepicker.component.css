@@ -14,7 +14,10 @@
   width: 40px;
 }
 
-.date-picker #birthdate > mat-form-field > div.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align.ng-tns-c1205077789-0 {
+.date-picker
+  #birthdate
+  > mat-form-field
+  > div.mat-mdc-form-field-subscript-wrapper.mat-mdc-form-field-bottom-align.ng-tns-c1205077789-0 {
   display: none;
 }
 

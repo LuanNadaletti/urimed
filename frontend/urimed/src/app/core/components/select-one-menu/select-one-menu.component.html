@@ -1,8 +1,8 @@
 <mat-form-field>
-  <mat-label *ngIf="label">{{label}}</mat-label>
+  <mat-label *ngIf="label">{{ label }}</mat-label>
   <mat-select [formControl]="control">
     <mat-option *ngFor="let item of items" [value]="item">
-      {{item[displayField]}}
+      {{ item[displayField] }}
     </mat-option>
   </mat-select>
 </mat-form-field>

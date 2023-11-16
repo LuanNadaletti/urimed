@@ -11,7 +11,7 @@ export class PatientService {
 
   constructor(private http: HttpClient) {}
 
-  createPatient(patient:Patient): Observable<any> {
+  createPatient(patient: Patient): Observable<any> {
     return this.http.post(this.baseUrl, patient);
   }
 }

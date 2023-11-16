@@ -1,5 +1,9 @@
 import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormControl,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-datepicker',
@@ -13,7 +17,7 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
     },
   ],
 })
-export class DatepickerComponent{
+export class DatepickerComponent {
   dateControl = new FormControl();
 
   writeValue(value: any): void {

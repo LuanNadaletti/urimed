@@ -15,7 +15,12 @@ import { MenuComponent } from './core/components/menu/menu.component';
 describe('AppComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent, TopbarComponent, SidebarComponent, MenuComponent],
+      declarations: [
+        AppComponent,
+        TopbarComponent,
+        SidebarComponent,
+        MenuComponent,
+      ],
       imports: [
         ToastrModule.forRoot(),
         HttpClientModule,

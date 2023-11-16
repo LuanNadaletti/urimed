@@ -18,9 +18,9 @@
 }
 
 .menu-item:hover {
-    text-decoration: none;
-    color: #000;
-    cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
 }
 
 mat-icon {

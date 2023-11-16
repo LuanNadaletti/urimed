@@ -7,12 +7,20 @@ import { PatientRegistrationComponent } from './core/pages/patient-registration/
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'doctors', component: DoctorRegistrationComponent, canActivate: [AuthGuard] },
-  { path: 'patients', component: PatientRegistrationComponent, canActivate: [AuthGuard] },
+  {
+    path: 'doctors',
+    component: DoctorRegistrationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'patients',
+    component: PatientRegistrationComponent,
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

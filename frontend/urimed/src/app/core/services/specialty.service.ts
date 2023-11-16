@@ -1,17 +1,17 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpecialtyService {
-    private apiUrl = 'http://localhost:8080/specialties';
+  private apiUrl = 'http://localhost:8080/specialties';
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-    getEspecialties(): Observable<any> {
-        console.log(this.http.get(this.apiUrl));
-        return this.http.get(this.apiUrl);
-    }
+  getEspecialties(): Observable<any> {
+    console.log(this.http.get(this.apiUrl));
+    return this.http.get(this.apiUrl);
+  }
 }

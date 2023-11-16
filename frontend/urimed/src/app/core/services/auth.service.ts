@@ -18,14 +18,14 @@ export class AuthService {
 
   login(username: string, password: string) {
     this.http.post<any>(this.loginUrl, { username, password }).subscribe(
-      res => {
+      (res) => {
         if (res) {
           localStorage.setItem('token', username);
           this.router.navigate(['/']);
           console.log(res);
         }
       },
-      error => {
+      (error) => {
         this.toastrService.error('Usuário ou senha incorretos');
         throw error;
       }

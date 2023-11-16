@@ -68,7 +68,13 @@ import { PatientService } from './core/services/patient.service';
     MatExpansionModule,
     MatListModule,
   ],
-  exports: [SidebarComponent, TopbarComponent, DatepickerComponent, SelectOneMenuComponent, MenuComponent],
+  exports: [
+    SidebarComponent,
+    TopbarComponent,
+    DatepickerComponent,
+    SelectOneMenuComponent,
+    MenuComponent,
+  ],
   providers: [DoctorService, PatientService, SpecialtyService, AuthService],
   bootstrap: [AppComponent],
 })

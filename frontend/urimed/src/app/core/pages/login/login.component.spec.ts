@@ -12,7 +12,11 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [HttpClientTestingModule, ToastrModule.forRoot(), ReactiveFormsModule],
+      imports: [
+        HttpClientTestingModule,
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
+      ],
     });
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
