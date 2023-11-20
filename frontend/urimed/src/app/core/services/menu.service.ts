@@ -6,24 +6,43 @@ import { MenuItem } from '../models/menu-item.interface';
   providedIn: 'root',
 })
 export class MenuService {
-  getMenuItems(): Observable<MenuItem[]> {
-    const menuItems: MenuItem[] = [
-      { label: 'Página Inicial', destination: '/', icon: 'home' },
-      {
-        label: 'Cadastros',
-        destination: '',
-        children: [
-          { label: 'Pacientes', destination: '/patients', icon: 'person' },
-          {
-            label: 'Médicos',
-            destination: '/doctors',
-            icon: 'medical_services',
-          },
-        ],
-        icon: 'create',
-      },
-    ];
+  adminMenuItems: MenuItem[] = [
+    { label: 'Página Inicial', destination: '/', icon: 'home' },
+    { label: 'Consultas', destination: '/doctor-appointments', icon: 'list' },
+    { label: 'Agendamento', destination: '/appointments', icon: 'list' },
+    {
+      label: 'Cadastros',
+      destination: '',
+      children: [
+        { label: 'Pacientes', destination: '/patients', icon: 'person' },
+        { label: 'Médicos', destination: '/doctors', icon: 'medical_services' },
+        { label: 'Horários', destination: '/doctor-schedule', icon: 'schedule' },
+      ],
+      icon: 'create',
+    },
+  ];
 
-    return of(menuItems);
+  patientMenuItems: MenuItem[] = [
+    { label: 'Página Inicial', destination: '/', icon: 'home' },
+    { label: 'Agendamento', destination: '/appointments', icon: 'list' },
+  ];
+
+  doctorMenuItems: MenuItem[] = [
+    { label: 'Página Inicial', destination: '/', icon: 'home' },
+    { label: 'Consultas', destination: '/doctor-appointments', icon: 'list' },
+    { label: 'Horários', destination: '/doctor-schedule', icon: 'schedule' },
+  ];
+
+  getMenuItems(userType: string): Observable<MenuItem[]> {
+    switch (userType) {
+      case 'admin':
+        return of(this.adminMenuItems);
+      case 'patient':
+        return of(this.patientMenuItems);
+      case 'doctor':
+        return of(this.doctorMenuItems);
+      default:
+        return of([]);
+    }
   }
 }

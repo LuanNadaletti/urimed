@@ -73,6 +73,8 @@ export class DoctorRegistrationComponent implements OnInit {
         this.toastrService.error('Não foi possível cadastrar o médico', 'Erro');
       }
     );
+
+    this.clearDoctor();
   }
 
   createDoctorForm(): FormGroup {
@@ -121,6 +123,14 @@ export class DoctorRegistrationComponent implements OnInit {
       specialty: this.doctorForm.get('Especialidade')?.value,
       username: this.doctorForm.get('CPF')?.value,
       password: this.doctorForm.get('CPF')?.value,
+      role: {
+        id: 2,
+        name: 'doctor',
+      }
     };
+  }
+
+  clearDoctor() {
+    this.doctorForm = this.createDoctorForm();
   }
 }

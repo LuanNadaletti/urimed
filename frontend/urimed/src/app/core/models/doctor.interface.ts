@@ -1,5 +1,6 @@
 import { Address } from './address.interface';
 import { Gender } from './gender.interface';
+import { Role } from './role.interface';
 import { Specialty } from './specialty.interface';
 
 export interface Doctor {
@@ -14,4 +15,5 @@ export interface Doctor {
   specialty: Specialty;
   username: string;
   password: string;
+  role: Role;
 }

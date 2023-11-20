@@ -1,0 +1,45 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Informações do Paciente</mat-card-title>
+    <mat-card-content>
+      <p><strong>Nome:</strong> {{ consultation?.patient?.name }}</p>
+      <p><strong>Sexo:</strong> {{ consultation?.patient?.gender.name }}</p>
+      <!-- Add more patient information as needed -->
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Consulta SOAP</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="consultationForm">
+        <mat-form-field>
+          <mat-label>Subjetivo</mat-label>
+          <textarea matInput formControlName="subjective"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Objetivo</mat-label>
+          <textarea matInput formControlName="objective"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Avaliação</mat-label>
+          <textarea matInput formControlName="assessment"></textarea>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Plano</mat-label>
+          <textarea matInput formControlName="plan"></textarea>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          class="button button-primary"
+          (click)="saveConsultation()"
+        >
+          Salvar
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

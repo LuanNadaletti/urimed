@@ -14,6 +14,7 @@ import { ErrorHandlingService } from 'src/app/core/services/errorhandling.servic
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginRequest: LoginRequest;
+  hide: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,

@@ -55,13 +55,15 @@ export class PatientRegistrationComponent implements OnInit {
 
     this.patientService.createPatient(this.createPatient()).subscribe(
       (res) => {
-        this.toastrService.success('Médico cadastrado com sucesso', 'Sucesso');
+        this.toastrService.success('Paciente cadastrado com sucesso', 'Sucesso');
         this.patientForm.reset();
       },
       (err) => {
-        this.toastrService.error('Não foi possível cadastrar o médico', 'Erro');
+        this.toastrService.error('Não foi possível cadastrar o paciente', 'Erro');
       }
     );
+
+    this.clearPatient();
   }
 
   createPatientForm(): FormGroup {
@@ -106,6 +108,14 @@ export class PatientRegistrationComponent implements OnInit {
       email: this.patientForm.get('Email')?.value,
       username: this.patientForm.get('CPF')?.value,
       password: this.patientForm.get('CPF')?.value,
+      role: {
+        id: 3,
+        name: 'patient',
+      }
     };
+  }
+
+  clearPatient() {
+    this.patientForm = this.createPatientForm();
   }
 }

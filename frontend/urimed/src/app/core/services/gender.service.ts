@@ -11,7 +11,6 @@ export class GenderService {
   constructor(private http: HttpClient) {}
 
   getGenders(): Observable<any> {
-    console.log(this.http.get(this.apiUrl));
     return this.http.get(this.apiUrl);
   }
 }

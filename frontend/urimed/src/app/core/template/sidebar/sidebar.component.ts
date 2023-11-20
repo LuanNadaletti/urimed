@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
 import { MenuItem } from '../../models/menu-item.interface';
+import { PersonService } from '../../services/person.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,11 +11,18 @@ import { MenuItem } from '../../models/menu-item.interface';
 export class SidebarComponent implements OnInit {
   menuItems: MenuItem[] = [];
 
-  constructor(private menuService: MenuService) {}
+  constructor(private menuService: MenuService, private personService: PersonService) {}
 
   ngOnInit() {
-    this.menuService.getMenuItems().subscribe((items) => {
-      this.menuItems = items;
+    let username: string = localStorage.getItem('token') as string;
+  
+    this.personService.getRoleByUsername(username).subscribe((role) => {
+      if (role && role.name) {
+        let userType = role.name;
+        this.menuService.getMenuItems(userType).subscribe((items) => {
+          this.menuItems = items;
+        });
+      }
     });
   }
 }

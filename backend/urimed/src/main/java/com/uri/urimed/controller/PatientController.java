@@ -1,6 +1,7 @@
 package com.uri.urimed.controller;
 
 import com.uri.urimed.model.Patient;
+import com.uri.urimed.model.Role;
 import com.uri.urimed.repository.PatientRepository;
 import com.uri.urimed.util.ListUtils;
 import jakarta.validation.Valid;

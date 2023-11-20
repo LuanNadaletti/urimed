@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="title">
+    <mat-icon>schedule</mat-icon>
+    <span class="title-text">Cadastro de Horário</span>
+  </div>
+
+  <form [formGroup]="scheduleForm">
+    <div class="card-container">
+      <div class="day-card {{ dayName }}" *ngFor="let dayName of dayNames">
+        <div [formGroupName]="dayName" class="day-group">
+          <h2 class="day-title">{{ dayName }}</h2>
+          <div class="time-group">
+            <div>
+              <label for="start-time-{{ dayName }}">Horário Inicial:</label>
+              <input
+                id="start-time-{{ dayName }}"
+                type="time"
+                formControlName="startTime"
+                class="time-input"
+              />
+            </div>
+            <div>
+              <label for="end-time-{{ dayName }}">Horário Final:</label>
+              <input
+                id="end-time-{{ dayName }}"
+                type="time"
+                formControlName="endTime"
+                class="time-input"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="toolbar">
+    <button class="button button-primary" (click)="saveSchedule()">
+      Salvar
+    </button>
+  </div>
+</div>

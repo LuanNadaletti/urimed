@@ -30,6 +30,20 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { PatientRegistrationComponent } from './core/pages/patient-registration/patient-registration.component';
 import { PatientService } from './core/services/patient.service';
+import { LayoutService } from './core/services/layout.service';
+import { LayoutComponent } from './core/template/layout/layout.component';
+import { ScheduleAppointmentComponent } from './core/pages/schedule-appointment/schedule-appointment.component';
+import { DataScrollerComponent } from './core/components/data-scroller/data-scroller.component';
+import { PersonService } from './core/services/person.service';
+import { DoctorScheduleComponent } from './core/pages/doctor-schedule/doctor-schedule.component';
+import { DoctorAvailabilityService } from './core/services/doctor-availability.service';
+import { DoctorAppointmentComponent } from './core/pages/doctor-appointment/doctor-appointment.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { ConsultationComponent } from './core/pages/consultation/consultation.component';
+import { AppointmentService } from './core/services/appointment.service';
+import { SharedService } from './core/services/shared.service';
+import { ConsultationService } from './core/services/consultation.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +56,12 @@ import { PatientService } from './core/services/patient.service';
     LoginComponent,
     MenuComponent,
     PatientRegistrationComponent,
+    LayoutComponent,
+    ScheduleAppointmentComponent,
+    DataScrollerComponent,
+    DoctorScheduleComponent,
+    DoctorAppointmentComponent,
+    ConsultationComponent
   ],
   imports: [
     FormsModule,
@@ -67,6 +87,8 @@ import { PatientService } from './core/services/patient.service';
     MatAutocompleteModule,
     MatExpansionModule,
     MatListModule,
+    MatCardModule,
+    MatTableModule,
   ],
   exports: [
     SidebarComponent,
@@ -75,7 +97,18 @@ import { PatientService } from './core/services/patient.service';
     SelectOneMenuComponent,
     MenuComponent,
   ],
-  providers: [DoctorService, PatientService, SpecialtyService, AuthService],
+  providers: [
+    DoctorService,
+    PatientService,
+    SpecialtyService,
+    AuthService,
+    LayoutService,
+    PersonService,
+    DoctorAvailabilityService,
+    AppointmentService,
+    SharedService,
+    ConsultationService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

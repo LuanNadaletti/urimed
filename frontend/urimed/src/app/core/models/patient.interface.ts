@@ -1,5 +1,6 @@
 import { Address } from './address.interface';
 import { Gender } from './gender.interface';
+import { Role } from './role.interface';
 
 export interface Patient {
   cpf: string;
@@ -11,4 +12,5 @@ export interface Patient {
   email: string;
   username: string;
   password: string;
+  role: Role;
 }

@@ -1,25 +1,35 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="username">Usuário</label>
-    <input
-      type="text"
-      formControlName="Usuário"
-      class="form-control"
-      id="username"
-      required
-    />
-  </div>
+<div class="container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-login">
+      <img src="../../../../assets/images/logo.png" alt="Logo" class="logo" />
 
-  <div class="form-group">
-    <label for="password">Senha</label>
-    <input
-      type="password"
-      formControlName="Senha"
-      class="form-control"
-      id="password"
-      required
-    />
-  </div>
+      <div class="input-container">
+        <mat-icon class="lock-icon icon">person</mat-icon>
 
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
+        <input
+          type="text"
+          formControlName="Usuário"
+          class="form-control"
+          placeholder="Usuário"
+        />
+      </div>
+
+      <div class="input-container">
+        <mat-icon class="lock-icon icon">lock</mat-icon>
+        <input
+          [type]="hide ? 'password' : 'text'"
+          formControlName="Senha"
+          class="form-control"
+          placeholder="Senha"
+        />
+        <a class="eye-icon" (click)="hide = !hide">
+          <mat-icon class="icon">{{
+            hide ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </a>
+      </div>
+
+      <button type="submit" class="button button-primary">Entrar</button>
+    </div>
+  </form>
+</div>
