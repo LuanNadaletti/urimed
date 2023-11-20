@@ -14,8 +14,6 @@ This is a hospital management system developed in Java and Angular, designed to 
 
 -  **Patient Management:** Record and access patient medical information, histories, and details.
 
--  **Inventory Control:** Keep track of medical supplies and medication inventory.
-
 -  **Reports:** Generate customizable reports for in-depth analysis.
 
 ## Technologies Used
