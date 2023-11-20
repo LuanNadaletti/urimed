@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uri.urimed.model.Address;
 import com.uri.urimed.model.Doctor;
 import com.uri.urimed.model.Gender;
+import com.uri.urimed.model.Role;
 import com.uri.urimed.model.Specialty;
 import com.uri.urimed.repository.DoctorRepository;
 import org.jetbrains.annotations.NotNull;
@@ -57,6 +58,7 @@ public class DoctorControllerTests {
         doctor.setId(1);
 
         Mockito.when(bCryptPasswordEncoder.encode(doctor.getPassword())).thenReturn(doctor.getPassword());
+        doctor.setRole(new Role(2, "doctor"));
 
         String requestBody = objectMapper.writeValueAsString(doctor);
         Mockito.when(doctorRepository.save(doctor)).thenReturn(doctor);
